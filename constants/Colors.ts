@@ -13,6 +13,7 @@ export default {
     border: '#C6C6CD',
     primary: tintColorLight,
     navy: '#131B2E',
+    onNavy: '#FFFFFF',
     primarySoft: '#DBE1FF',
     secondary: '#316BF3',
     accent: '#FFB020',
@@ -35,7 +36,8 @@ export default {
     surfaceHigh: '#213145',
     border: '#3F465C',
     primary: tintColorDark,
-    navy: '#EAF1FF',
+    navy: '#111827',
+    onNavy: '#EAF1FF',
     primarySoft: '#1E2B4A',
     secondary: '#6D8DFF',
     accent: '#FBBF24',
@@ -49,4 +51,3 @@ export default {
     tabIconSelected: tintColorDark,
   },
 };
-

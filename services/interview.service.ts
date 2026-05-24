@@ -36,6 +36,10 @@ export function findInterviewQuestion(id: string) {
   return interviewQuestions.find((item) => item.id === id);
 }
 
+export function getInterviewCategoryCount(category: string) {
+  return interviewQuestions.filter((item) => item.category === category).length;
+}
+
 function unique(values: string[]) {
   return [...new Set(values)];
 }

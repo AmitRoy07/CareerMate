@@ -80,6 +80,7 @@ function RootLayoutNav() {
           <Stack.Screen name="(auth)/phone" options={{ title: 'Phone sign in' }} />
           <Stack.Screen name="analyze/index" options={{ title: 'AI Analyzer' }} />
           <Stack.Screen name="interview/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="interview/questions" options={{ headerShown: false }} />
           <Stack.Screen name="legal/privacy" options={{ title: 'Privacy Policy' }} />
           <Stack.Screen name="legal/terms" options={{ title: 'Terms & Conditions' }} />
           <Stack.Screen name="legal/delete-account" options={{ title: 'Delete Account' }} />

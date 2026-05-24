@@ -24,7 +24,7 @@ export default function DashboardScreen() {
       <View style={styles.header}>
         <View style={styles.greetingRow}>
           <View style={[styles.avatar, { backgroundColor: colors.navy }]}>
-            <Text style={styles.avatarText}>{name.slice(0, 1).toUpperCase()}</Text>
+            <Text style={[styles.avatarText, { color: colors.onNavy }]}>{name.slice(0, 1).toUpperCase()}</Text>
           </View>
           <Text variant="title">Hello, {name}!</Text>
         </View>
@@ -71,7 +71,7 @@ function FeatureCard({ title, description, icon: Icon, onPress, primary, tone = 
 
 const styles = StyleSheet.create({
   avatar: { alignItems: 'center', borderRadius: 20, height: 40, justifyContent: 'center', width: 40 },
-  avatarText: { color: '#FFFFFF', fontFamily: 'PlusJakartaSans_700Bold' },
+  avatarText: { fontFamily: 'PlusJakartaSans_700Bold' },
   badge: { alignSelf: 'flex-start', backgroundColor: '#000000', borderRadius: 999, color: '#FFFFFF', paddingHorizontal: 8, paddingVertical: 3 },
   feature: { minHeight: 190 },
   featureTitle: { marginTop: 8 },

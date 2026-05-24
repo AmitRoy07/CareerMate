@@ -27,9 +27,9 @@ export default function ResumeTabScreen() {
           <View style={[styles.plus, { backgroundColor: colors.secondary }]}>
             <Plus color="#FFFFFF" size={26} />
           </View>
-          <Text variant="heading" style={styles.createTitle}>Create New Resume</Text>
-          <Text variant="muted" style={styles.createMuted}>Start with a template or AI-assisted generator.</Text>
-          <Text style={styles.quickStart}>Quick Start {'->'}</Text>
+          <Text variant="heading" style={[styles.createTitle, { color: colors.onNavy }]}>Create New Resume</Text>
+          <Text variant="muted" style={{ color: colorScheme === 'dark' ? colors.muted : '#7C839B' }}>Start with a template or AI-assisted generator.</Text>
+          <Text style={[styles.quickStart, { color: colorScheme === 'dark' ? colors.primary : '#DBE1FF' }]}>Quick Start {'->'}</Text>
         </Card>
       </Pressable>
 
@@ -72,14 +72,13 @@ const styles = StyleSheet.create({
   actionIcons: { flexDirection: 'row', gap: 20 },
   avatarSmall: { backgroundColor: '#0B1C30', borderRadius: 14, height: 28, width: 28 },
   createCard: { borderWidth: 0, minHeight: 256 },
-  createMuted: { color: '#7C839B' },
-  createTitle: { color: '#FFFFFF', marginTop: 8 },
+  createTitle: { marginTop: 8 },
   fab: { alignItems: 'center', borderRadius: 28, bottom: 88, elevation: 10, height: 56, justifyContent: 'center', position: 'absolute', right: 24, width: 56 },
   hero: { gap: 8 },
   itemActions: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 },
   itemHeader: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
   itemTitle: { fontSize: 20 },
   plus: { alignItems: 'center', borderRadius: 24, height: 48, justifyContent: 'center', width: 48 },
-  quickStart: { color: '#DBE1FF', fontFamily: 'PlusJakartaSans_700Bold', marginTop: 8 },
+  quickStart: { fontFamily: 'PlusJakartaSans_700Bold', marginTop: 8 },
   status: { borderRadius: 999, fontFamily: 'PlusJakartaSans_600SemiBold', overflow: 'hidden', paddingHorizontal: 14, paddingVertical: 6 },
 });

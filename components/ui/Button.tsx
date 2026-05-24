@@ -21,7 +21,8 @@ export function Button({ title, onPress, icon: Icon, variant = 'primary', loadin
   const colors = Colors[colorScheme];
   const isPrimary = variant === 'primary';
   const isDanger = variant === 'danger';
-  const backgroundColor = isPrimary ? '#000000' : isDanger ? colors.danger : colors.surface;
+  const primaryBackground = colorScheme === 'dark' ? colors.primary : '#000000';
+  const backgroundColor = isPrimary ? primaryBackground : isDanger ? colors.danger : colors.surface;
   const textColor = isPrimary || isDanger ? '#FFFFFF' : colors.text;
 
   return (
@@ -39,7 +40,7 @@ export function Button({ title, onPress, icon: Icon, variant = 'primary', loadin
         },
         style,
       ]}>
-      {isPrimary ? <LinearGradient colors={['#000000', '#000000']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} /> : null}
+      {isPrimary ? <LinearGradient colors={[primaryBackground, primaryBackground]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} /> : null}
       {loading ? <ActivityIndicator color={textColor} /> : Icon ? <Icon color={textColor} size={18} /> : null}
       <Text style={[styles.title, { color: variant === 'secondary' ? colors.primary : textColor }]}>{title}</Text>
     </Pressable>
