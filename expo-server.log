@@ -1,0 +1,21 @@
+Starting project at D:\work\CareerMate
+Starting Metro Bundler
+
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+λ Bundling failed 3040ms node_modules\expo\node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (3068 modules)
+
+Metro error: Unexpected end of MessagePack data
+
+  Error: Unexpected end of MessagePack data
+    at read (D:\work\CareerMate\node_modules\msgpackr\dist\node.cjs:489:18)
+    at checkedRead (D:\work\CareerMate\node_modules\msgpackr\dist\node.cjs:189:13)
+    at Packr.unpack (D:\work\CareerMate\node_modules\msgpackr\dist\node.cjs:99:12)
+    at Packr.decode (D:\work\CareerMate\node_modules\msgpackr\dist\node.cjs:171:15)
+    at BinaryFileStore.get (D:\work\CareerMate\node_modules\@expo\metro-config\build\binary-file-store.js:52:28)
+    at async Cache.get (D:\work\CareerMate\node_modules\metro-cache\src\Cache.js:31:19)
+    at async Transformer.transformFile (D:\work\CareerMate\node_modules\metro\src\DeltaBundler\Transformer.js:111:16)
+    at async bundler.transformFile (D:\work\CareerMate\node_modules\@expo\metro-config\build\serializer\packedMap.js:172:41)
+    at async Object.transform (D:\work\CareerMate\node_modules\metro\src\lib\transformHelpers.js:139:12)
+    at async transform (D:\work\CareerMate\node_modules\metro\src\DeltaBundler\Graph.js:176:26)
+Web Bundled 3145ms node_modules\expo-router\entry.js (3059 modules)
