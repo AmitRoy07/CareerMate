@@ -84,6 +84,7 @@ function RootLayoutNav() {
           <Stack.Screen name="legal/privacy" options={{ title: 'Privacy Policy' }} />
           <Stack.Screen name="legal/terms" options={{ title: 'Terms & Conditions' }} />
           <Stack.Screen name="legal/delete-account" options={{ title: 'Delete Account' }} />
+          <Stack.Screen name="vault/index" options={{ title: 'Document Vault' }} />
           <Stack.Screen name="resume/builder" options={{ title: 'Edit Resume' }} />
           <Stack.Screen name="resume/preview" options={{ title: 'Resume Preview' }} />
         </Stack>

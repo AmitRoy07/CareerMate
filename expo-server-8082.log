@@ -4,3 +4,36 @@ Starting Metro Bundler
 warning: Bundler cache is empty, rebuilding (this may take a minute)
 Waiting on http://localhost:8082
 Logs for your project will appear below.
+λ Bundled 69320ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (3147 modules)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 71437ms node_modules\expo-router\entry.js (3100 modules)
+λ Bundled 131ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 889ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 86ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 799ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 53ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1313ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 83ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 735ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 116ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1009ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 214ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1332ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 281ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1570ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 70ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 644ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 50ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 782ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 52ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 604ms node_modules\expo-router\entry.js (1 module)

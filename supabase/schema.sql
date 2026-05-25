@@ -67,12 +67,25 @@ create table if not exists public.user_favorites (
   unique (user_id, interview_question_id)
 );
 
+create table if not exists public.vault_documents (
+  id text primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  name text not null,
+  kind text not null,
+  mime_type text not null,
+  size bigint,
+  cloud_uri text,
+  synced_at timestamptz,
+  created_at timestamptz default now()
+);
+
 alter table public.users_profile enable row level security;
 alter table public.resumes enable row level security;
 alter table public.resume_sections enable row level security;
 alter table public.ai_resume_reports enable row level security;
 alter table public.salary_calculations enable row level security;
 alter table public.user_favorites enable row level security;
+alter table public.vault_documents enable row level security;
 
 create policy "Users manage own profile" on public.users_profile for all using (auth.uid() = id) with check (auth.uid() = id);
 create policy "Users manage own resumes" on public.resumes for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
@@ -80,6 +93,7 @@ create policy "Users manage own resume sections" on public.resume_sections for a
 create policy "Users manage own AI reports" on public.ai_resume_reports for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "Users manage own salary calculations" on public.salary_calculations for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "Users manage own favorites" on public.user_favorites for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "Users manage own vault documents" on public.vault_documents for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create policy "Anyone can read categories" on public.interview_categories for select using (true);
 create policy "Anyone can read questions" on public.interview_questions for select using (true);
@@ -99,3 +113,19 @@ create policy "Users update own avatars" on storage.objects
 create policy "Anyone can read avatars" on storage.objects
   for select
   using (bucket_id = 'avatars');
+
+insert into storage.buckets (id, name, public)
+values ('vault-documents', 'vault-documents', false)
+on conflict (id) do nothing;
+
+create policy "Users upload own vault documents" on storage.objects
+  for insert
+  with check (bucket_id = 'vault-documents' and auth.uid()::text = (storage.foldername(name))[1]);
+
+create policy "Users update own vault documents" on storage.objects
+  for update
+  using (bucket_id = 'vault-documents' and auth.uid()::text = (storage.foldername(name))[1]);
+
+create policy "Users read own vault documents" on storage.objects
+  for select
+  using (bucket_id = 'vault-documents' and auth.uid()::text = (storage.foldername(name))[1]);

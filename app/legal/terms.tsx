@@ -30,9 +30,13 @@ export default function TermsScreen() {
 
       <Card>
         <Text variant="heading">Subscriptions And Changes</Text>
-        <Text>Future paid plans may include templates, advanced AI analysis, and premium interview packs. Pricing, features, and availability may change with notice inside the app or store listing.</Text>
+        <Text>Future paid plans may include templates, advanced AI analysis, premium interview packs, and Vault Plus document backup. Vault Plus is planned at $1/month. Pricing, features, and availability may change with notice inside the app or store listing.</Text>
+      </Card>
+
+      <Card>
+        <Text variant="heading">Document Vault</Text>
+        <Text>Local vault files remain on your device unless you enable cloud sync. You are responsible for ensuring uploaded identity, education, and employment documents are yours and are stored in compliance with applicable laws.</Text>
       </Card>
     </Screen>
   );
 }
-

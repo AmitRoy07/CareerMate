@@ -1,9 +1,8 @@
 import { router } from 'expo-router';
-import { ArrowRight, Bot, Brain, Calculator, FileText, Search } from 'lucide-react-native';
+import { ArrowRight, Bot, Brain, Calculator, FileLock2, FileText, Search } from 'lucide-react-native';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AppTopBar } from '@/components/ui/AppTopBar';
-import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { GlassIcon } from '@/components/ui/GlassIcon';
 import { Screen } from '@/components/ui/Screen';
@@ -40,6 +39,7 @@ export default function DashboardScreen() {
         <FeatureCard title="Build Resume" description="Create your professional ATS-friendly resume for the Indian market." icon={FileText} primary onPress={() => router.push('/resume/builder')} />
         <FeatureCard title="Salary Calculator" description="Calculate your in-hand CTC breakdown including PF and Tax." icon={Calculator} tone="green" onPress={() => router.push('/(tabs)/salary')} />
         <FeatureCard title="Interview Prep" description="Practice with top company questions and focused revision." icon={Brain} tone="violet" onPress={() => router.push('/(tabs)/interview')} />
+        <FeatureCard title="Document Vault" description="Store Aadhaar, PAN, certificates, and offers locally with optional cloud backup." icon={FileLock2} tone="cyan" onPress={() => router.push('/vault' as never)} />
       </View>
 
       <Text variant="heading">Coming Soon</Text>
@@ -63,7 +63,12 @@ function FeatureCard({ title, description, icon: Icon, onPress, primary, tone = 
         <GlassIcon icon={Icon} tone={tone} size={56} />
         <Text variant="heading" style={primary ? styles.featureTitle : undefined}>{title}</Text>
         <Text variant="muted">{description}</Text>
-        {primary ? <Button title="Get Started" icon={ArrowRight} onPress={onPress} style={styles.startButton} /> : null}
+        {primary ? (
+          <Pressable onPress={onPress} style={styles.startButton}>
+            <Text style={styles.startButtonText}>Get Started</Text>
+            <ArrowRight color="#FFFFFF" size={17} />
+          </Pressable>
+        ) : null}
       </Card>
     </Pressable>
   );
@@ -81,5 +86,17 @@ const styles = StyleSheet.create({
   primaryFeature: { minHeight: 300 },
   search: { alignItems: 'center', borderRadius: 12, borderWidth: 1, flexDirection: 'row', gap: 12, minHeight: 50, paddingHorizontal: 16 },
   searchInput: { flex: 1, fontFamily: 'PlusJakartaSans_400Regular', fontSize: 16 },
-  startButton: { alignSelf: 'flex-start', marginTop: 16, minWidth: 148 },
+  startButton: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    backgroundColor: '#000000',
+    borderRadius: 8,
+    flexDirection: 'row',
+    gap: 8,
+    height: 44,
+    justifyContent: 'center',
+    marginTop: 18,
+    paddingHorizontal: 20,
+  },
+  startButtonText: { color: '#FFFFFF', fontFamily: 'PlusJakartaSans_700Bold', fontSize: 14 },
 });

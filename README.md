@@ -9,6 +9,7 @@ Production-oriented Expo MVP for Indian job seekers: resume builder, PDF export,
 - Supabase Auth, PostgreSQL, Storage-ready schema
 - Supabase Edge Functions for AI calls
 - Expo Print/Sharing for PDF export
+- Local-first private document vault with optional paid cloud sync path
 
 ## Setup
 
@@ -25,7 +26,20 @@ The app supports local demo mode when Supabase env vars are missing.
 - Route AI analysis through `supabase/functions/analyze-resume`.
 - Keep Row Level Security enabled on all user-owned tables.
 - For phone OTP, enable the Supabase Phone provider and configure an SMS provider before production.
+- The document vault is local-only by default. Cloud sync must stay locked behind a real payment/subscription check before production.
 - Add rate limiting, privacy policy, terms, and full account deletion before Play Store release.
+
+## Document Vault
+
+The vault imports PDFs/images into app-private local storage for offline access. Nothing is uploaded unless the user enables Vault Plus and triggers sync.
+
+Production setup required:
+
+- Apply `supabase/schema.sql` so `vault_documents` and `vault-documents` storage policies exist.
+- Replace the demo Vault Plus toggle with a real subscription entitlement from Razorpay, RevenueCat, or your billing backend.
+- Keep the `vault-documents` bucket private.
+- Add server-side signed URL/download logic if users need restore on new devices.
+- Add account deletion cleanup for vault files and metadata.
 
 ## Design Imports
 
@@ -38,8 +52,20 @@ npm run start
 npm run android
 npm run web
 npm run build:interviews
+npm run typecheck
+npm run doctor
 npx expo-doctor
 ```
+
+## Production Checklist
+
+- Configure Supabase Auth providers: email, Google, phone OTP, and Apple before iOS release.
+- Configure Supabase RLS and storage policies using `supabase/schema.sql`.
+- Deploy `supabase/functions/analyze-resume` and move AI keys to server-side secrets.
+- Replace placeholder Vault Plus toggle with verified $1/month subscription entitlement.
+- Add real account deletion Edge Function using service-role credentials.
+- Add hosted privacy policy and terms URLs to app store listings.
+- Run `npm run typecheck`, `npm run doctor`, and an EAS preview build before release.
 
 ## Interview Bank
 

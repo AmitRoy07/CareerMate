@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Camera, ChevronRight, FileText, LogOut, Moon, ShieldCheck, Sun, Trash2, UserRound } from 'lucide-react-native';
+import { Camera, ChevronRight, FileLock2, FileText, LogOut, Moon, ShieldCheck, Sun, Trash2, UserRound } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { Alert, Image, Pressable, StyleSheet, Switch, View } from 'react-native';
 
@@ -89,6 +89,7 @@ export default function ProfileScreen() {
       <Card>
         <Text variant="heading">Account</Text>
         <ProfileLink icon={FileText} title="Saved resumes" subtitle="View and manage your resume drafts" onPress={() => router.push('/(tabs)/resume')} />
+        <ProfileLink icon={FileLock2} title="Document Vault" subtitle="Local-only personal document storage" onPress={() => router.push('/vault' as never)} />
         <ProfileLink icon={ShieldCheck} title="Privacy Policy" subtitle="How CareerMate handles your data" onPress={() => router.push('/legal/privacy')} />
         <ProfileLink icon={FileText} title="Terms & Conditions" subtitle="Rules for using CareerMate India" onPress={() => router.push('/legal/terms')} />
         <ProfileLink icon={Trash2} title="Delete account" subtitle="Request permanent account deletion" onPress={() => router.push('/legal/delete-account' as never)} danger />

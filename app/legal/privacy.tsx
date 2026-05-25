@@ -29,10 +29,14 @@ export default function PrivacyPolicyScreen() {
       </Card>
 
       <Card>
+        <Text variant="heading">Document Vault</Text>
+        <Text>Personal documents imported into the vault are stored locally on your device by default. They are uploaded to cloud storage only when you enable the paid Vault Plus sync plan and request sync.</Text>
+      </Card>
+
+      <Card>
         <Text variant="heading">Your Choices</Text>
         <Text>You can update your profile, delete uploaded files, request account deletion, and contact support for data export or correction. Production builds should publish a support email and deletion SLA.</Text>
       </Card>
     </Screen>
   );
 }
-

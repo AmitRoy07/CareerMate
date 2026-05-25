@@ -1,6 +1,8 @@
 import { router } from 'expo-router';
-import { ArrowRight, Braces, Brain, Code2, FileCode2, Globe2, Layout, Network, UsersRound } from 'lucide-react-native';
+import { ArrowRight, Braces, Brain, Code2, FileCode2, Globe2, Layout, Network, Search, UsersRound } from 'lucide-react-native';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native';
 
 import { AppTopBar } from '@/components/ui/AppTopBar';
 import { Card } from '@/components/ui/Card';
@@ -9,7 +11,7 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
-import { getInterviewCategoryCount, interviewBankMeta } from '@/services/interview.service';
+import { getInterviewCategoryCount, interviewBankMeta, interviewCategories } from '@/services/interview.service';
 
 const modules = [
   { category: 'HTML', label: 'Web Essentials', title: 'HTML', description: 'Semantic structures, accessibility, and modern SEO patterns.', icon: Globe2, tone: 'blue' },
@@ -24,6 +26,15 @@ const modules = [
 export default function InterviewScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
+  const [sectorQuery, setSectorQuery] = useState('');
+  const moduleCategories = modules.map((item) => item.category);
+  const allSectors = useMemo(
+    () =>
+      interviewCategories
+        .filter((category) => !moduleCategories.includes(category as never))
+        .filter((category) => category.toLowerCase().includes(sectorQuery.toLowerCase())),
+    [moduleCategories, sectorQuery],
+  );
 
   return (
     <Screen>
@@ -45,6 +56,28 @@ export default function InterviewScreen() {
       <View style={styles.modules}>
         {modules.map((item) => (
           <ModuleCard key={item.category} {...item} colors={colors} />
+        ))}
+      </View>
+
+      <View style={styles.sectionHeader}>
+        <Text variant="heading">All Sectors</Text>
+        <Text variant="muted">{interviewCategories.length.toLocaleString('en-IN')} total sectors from the imported question bank.</Text>
+      </View>
+
+      <View style={[styles.search, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Search color={colors.muted} size={18} />
+        <TextInput
+          value={sectorQuery}
+          onChangeText={setSectorQuery}
+          placeholder="Search sectors like AWS, Python, Excel..."
+          placeholderTextColor={colors.muted}
+          style={[styles.searchInput, { color: colors.text }]}
+        />
+      </View>
+
+      <View style={styles.sectorGrid}>
+        {allSectors.map((category) => (
+          <SectorRow key={category} category={category} colors={colors} />
         ))}
       </View>
     </Screen>
@@ -82,6 +115,24 @@ function ModuleCard({
   );
 }
 
+function SectorRow({ category, colors }: { category: string; colors: typeof Colors.light }) {
+  const count = getInterviewCategoryCount(category);
+
+  return (
+    <Pressable onPress={() => router.push({ pathname: '/interview/questions', params: { category } })}>
+      <Card style={styles.sectorCard}>
+        <View style={styles.sectorText}>
+          <Text variant="heading" style={styles.sectorTitle}>{category}</Text>
+          <Text variant="muted">{count.toLocaleString('en-IN')} question-answer items</Text>
+        </View>
+        <View style={[styles.arrow, { backgroundColor: colors.surfaceLow }]}>
+          <ArrowRight color={colors.primary} size={22} />
+        </View>
+      </Card>
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   arrow: { alignItems: 'center', borderRadius: 22, height: 44, justifyContent: 'center', width: 44 },
   count: { fontFamily: 'PlusJakartaSans_700Bold' },
@@ -91,6 +142,13 @@ const styles = StyleSheet.create({
   moduleTop: { alignItems: 'flex-start', flexDirection: 'row', justifyContent: 'space-between' },
   modules: { gap: 16 },
   pill: { borderRadius: 999, fontFamily: 'PlusJakartaSans_600SemiBold', overflow: 'hidden', paddingHorizontal: 12, paddingVertical: 6 },
+  search: { alignItems: 'center', borderRadius: 12, borderWidth: 1, flexDirection: 'row', gap: 10, minHeight: 50, paddingHorizontal: 14 },
+  searchInput: { flex: 1, fontFamily: 'PlusJakartaSans_400Regular', fontSize: 16 },
+  sectionHeader: { gap: 4 },
+  sectorCard: { alignItems: 'center', flexDirection: 'row', gap: 12, padding: 18 },
+  sectorGrid: { gap: 10 },
+  sectorText: { flex: 1, gap: 2 },
+  sectorTitle: { fontSize: 18, lineHeight: 24 },
   summary: { alignItems: 'center', flexDirection: 'row' },
   summaryCopy: { flex: 1, gap: 4 },
 });

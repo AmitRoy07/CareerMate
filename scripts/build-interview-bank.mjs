@@ -77,7 +77,7 @@ function parseFrontend100() {
   if (!existsSync(readme)) return;
 
   const text = readFileSync(readme, 'utf8');
-  const matches = [...text.matchAll(/\n(\d+)\.\s+###\s+(.+?)\n([\s\S]*?)(?=\n\d+\.\s+###|\n## Day|\n# (HTML|CSS|Javascript|React|Typescript)|$)/g)];
+  const matches = [...text.matchAll(/(?:^|\r?\n)(\d+)\.\s+###\s+(.+?)\r?\n([\s\S]*?)(?=\r?\n\d+\.\s+###|\r?\n# (HTML|CSS|Javascript|React|Typescript)|$)/g)];
   let category = 'Frontend';
   const categoryRanges = [
     ['HTML', 1, 50],
@@ -102,12 +102,12 @@ function parseFrontend100() {
   }
 }
 
-function parseLinkedinTopic(folder, category) {
+function parseLinkedinTopic(folder, category = categoryFromFolder(folder)) {
   const quiz = join(repos.linkedin, folder, `${folder}-quiz.md`);
   if (!existsSync(quiz)) return;
 
   const text = readFileSync(quiz, 'utf8');
-  const matches = [...text.matchAll(/####\s+Q\d+\.\s+(.+?)\n([\s\S]*?)(?=\n####\s+Q\d+\.|$)/g)];
+  const matches = [...text.matchAll(/####\s+Q\d+\.\s+(.+?)\r?\n([\s\S]*?)(?=\r?\n####\s+Q\d+\.|$)/g)];
 
   for (const match of matches) {
     const body = match[2];
@@ -128,6 +128,70 @@ function parseLinkedinTopic(folder, category) {
       tags: ['linkedin', 'quiz', category.toLowerCase()],
     });
   }
+}
+
+function parseAllLinkedinTopics() {
+  if (!existsSync(repos.linkedin)) return;
+
+  const folders = readdirSync(repos.linkedin, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'assets')
+    .map((entry) => entry.name)
+    .filter((folder) => existsSync(join(repos.linkedin, folder, `${folder}-quiz.md`)));
+
+  for (const folder of folders) {
+    parseLinkedinTopic(folder);
+  }
+}
+
+function categoryFromFolder(folder) {
+  const known = {
+    'adobe-ai': 'Adobe Illustrator',
+    'adobe-in-design': 'Adobe InDesign',
+    'adobe-xd': 'Adobe XD',
+    'ai-ml': 'AI/ML',
+    'arc-gis': 'ArcGIS',
+    'autocad': 'AutoCAD',
+    'aws': 'AWS',
+    'aws-lambda': 'AWS Lambda',
+    'c-(programming-language)': 'C',
+    'c++': 'C++',
+    'c-sharp': 'C#',
+    'css': 'CSS',
+    'dotnet-framework': '.NET Framework',
+    'front-end-development': 'Front-End Development',
+    'google-cloud-platform': 'Google Cloud Platform',
+    'html': 'HTML',
+    'it-operations': 'IT Operations',
+    'javascript': 'JavaScript',
+    'jquery': 'jQuery',
+    'json': 'JSON',
+    'mongodb': 'MongoDB',
+    'mysql': 'MySQL',
+    'node.js': 'Node.js',
+    'nosql': 'NoSQL',
+    'objective-c': 'Objective-C',
+    'php': 'PHP',
+    'python': 'Python',
+    'r': 'R',
+    'reactjs': 'React',
+    'rest-api': 'REST API',
+    'ruby-on-rails': 'Ruby on Rails',
+    't-sql': 'T-SQL',
+    'typescript': 'TypeScript',
+    'vba': 'VBA',
+    'wordpress': 'WordPress',
+    'xml': 'XML',
+  };
+
+  if (known[folder]) return known[folder];
+
+  return folder
+    .split('-')
+    .map((part) => {
+      if (!part) return part;
+      return part[0].toUpperCase() + part.slice(1);
+    })
+    .join(' ');
 }
 
 function parseCompanyProblems() {
@@ -200,18 +264,7 @@ function parseCsv(text) {
 }
 
 parseFrontend100();
-for (const [folder, category] of [
-  ['javascript', 'JavaScript'],
-  ['reactjs', 'React'],
-  ['html', 'HTML'],
-  ['css', 'CSS'],
-  ['typescript', 'TypeScript'],
-  ['git', 'Git'],
-  ['rest-api', 'REST API'],
-  ['node.js', 'Node.js'],
-]) {
-  parseLinkedinTopic(folder, category);
-}
+parseAllLinkedinTopics();
 parseCompanyProblems();
 
 const publicBank = bank
@@ -234,4 +287,3 @@ writeFileSync(
 );
 
 console.log(`Built ${publicBank.length} interview questions at ${basename(outputFile)}`);
-
