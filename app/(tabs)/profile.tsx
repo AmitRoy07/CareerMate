@@ -1,19 +1,23 @@
 import { router } from 'expo-router';
-import { Camera, ChevronRight, FileLock2, FileText, LogOut, Moon, ShieldCheck, Sun, Trash2, UserRound } from 'lucide-react-native';
+import { Bot, Camera, ChevronRight, Crown, FileLock2, FileText, LogOut, MessageSquareText, Moon, ShieldCheck, Sun, Trash2, UserRound } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { Alert, Image, Pressable, StyleSheet, Switch, View } from 'react-native';
 
 import { AppTopBar } from '@/components/ui/AppTopBar';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { CreditBadge } from '@/components/ui/CreditBadge';
+import { PremiumFeatureCard } from '@/components/ui/PremiumFeatureCard';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { pickProfileImage, getLocalAvatar, saveProfileAvatar } from '@/services/profile.service';
+import { getPremiumSnapshot, getSnapshotCreditBalance, snapshotHasEntitlement } from '@/services/monetization.service';
 import { signOut } from '@/services/auth.service';
 import { useAppSettings } from '@/store/appSettings';
 import { useAuth } from '@/store/userStore';
+import type { PremiumSnapshot } from '@/types/monetization.types';
 
 export default function ProfileScreen() {
   const colorScheme = useColorScheme();
@@ -22,6 +26,7 @@ export default function ProfileScreen() {
   const { toggleTheme } = useAppSettings();
   const [avatarUri, setAvatarUri] = useState<string | null>(user?.user_metadata?.avatar_url ?? null);
   const [uploading, setUploading] = useState(false);
+  const [premium, setPremium] = useState<PremiumSnapshot | null>(null);
 
   const displayName = user?.user_metadata?.full_name ?? user?.email?.split('@')[0] ?? 'Rahul Sharma';
   const phone = user?.phone ?? '+91 98765 43210';
@@ -31,6 +36,12 @@ export default function ProfileScreen() {
       if (uri && !avatarUri) setAvatarUri(uri);
     });
   }, [avatarUri]);
+
+  useEffect(() => {
+    getPremiumSnapshot(user?.id)
+      .then(setPremium)
+      .catch((error) => Alert.alert('Premium status unavailable', error instanceof Error ? error.message : 'Please try again.'));
+  }, [user?.id]);
 
   async function handleAvatarUpload() {
     try {
@@ -87,6 +98,42 @@ export default function ProfileScreen() {
       </Card>
 
       <Card>
+        <Text variant="heading">Plan & Credits</Text>
+        <View style={styles.planRow}>
+          <View style={[styles.linkIcon, { backgroundColor: colors.primarySoft }]}>
+            <Crown color={colors.primary} size={22} />
+          </View>
+          <View style={styles.linkCopy}>
+            <Text>{formatPlanName(premium?.plan.planType ?? 'free')}</Text>
+            <Text variant="muted">{premium?.plan.status ?? 'active'} plan</Text>
+          </View>
+        </View>
+        <CreditBadge label="AI resume scans" value={getCreditValue(premium, 'ai_resume_scan')} />
+        <CreditBadge label="Job matches" value={getCreditValue(premium, 'job_match')} />
+        <CreditBadge label="HR mails" value={getCreditValue(premium, 'hr_mail')} />
+        <CreditBadge label="Mock interviews" value={getCreditValue(premium, 'mock_interview')} />
+      </Card>
+
+      <PremiumFeatureCard
+        title="Vault cloud sync"
+        description="Premium entitlement foundation only. Payment gateway will unlock this later."
+        icon={FileLock2}
+        unlocked={premium ? snapshotHasEntitlement(premium, 'vault_cloud_sync') : false}
+      />
+      <PremiumFeatureCard
+        title="AI Resume Analyzer"
+        description="ATS score, weak sections, keywords, and professional rewrite suggestions."
+        icon={Bot}
+        unlocked={premium ? snapshotHasEntitlement(premium, 'ai_resume_analyzer') : false}
+      />
+      <PremiumFeatureCard
+        title="Job Match and HR mails"
+        description="Compare resumes with JDs and generate professional HR letters."
+        icon={MessageSquareText}
+        unlocked={premium ? snapshotHasEntitlement(premium, 'job_match') || snapshotHasEntitlement(premium, 'hr_mail_generator') : false}
+      />
+
+      <Card>
         <Text variant="heading">Account</Text>
         <ProfileLink icon={FileText} title="Saved resumes" subtitle="View and manage your resume drafts" onPress={() => router.push('/(tabs)/resume')} />
         <ProfileLink icon={FileLock2} title="Document Vault" subtitle="Local-only personal document storage" onPress={() => router.push('/vault' as never)} />
@@ -97,12 +144,25 @@ export default function ProfileScreen() {
 
       <Card>
         <Text variant="heading">Subscription</Text>
-        <Text variant="muted">Premium templates, AI packs, Razorpay subscriptions, and AdMob can be added in Phase 3.</Text>
+        <Text variant="muted">Manage subscription and Restore Purchases are placeholders until Play Store/App Store billing is connected.</Text>
+        <Button title="Manage Subscription" icon={Crown} variant="secondary" onPress={() => Alert.alert('Coming soon', 'Payment gateway is intentionally not connected yet.')} />
+        <Button title="Restore Purchases" variant="ghost" onPress={() => Alert.alert('Coming soon', 'Store purchase restore will be added with billing integration.')} />
       </Card>
 
       <Button title="Logout" icon={LogOut} variant="secondary" onPress={handleLogout} />
     </Screen>
   );
+}
+
+function getCreditValue(snapshot: PremiumSnapshot | null, creditType: 'ai_resume_scan' | 'job_match' | 'hr_mail' | 'mock_interview') {
+  return snapshot ? getSnapshotCreditBalance(snapshot, creditType) : 0;
+}
+
+function formatPlanName(plan: string) {
+  return plan
+    .split('_')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 function ProfileLink({
@@ -159,6 +219,7 @@ const styles = StyleSheet.create({
   linkCopy: { flex: 1, gap: 2 },
   linkIcon: { alignItems: 'center', borderRadius: 12, height: 44, justifyContent: 'center', width: 44 },
   linkRow: { alignItems: 'center', flexDirection: 'row', gap: 12, paddingVertical: 8 },
+  planRow: { alignItems: 'center', flexDirection: 'row', gap: 12 },
   rowLabel: { alignItems: 'center', flex: 1, flexDirection: 'row', gap: 12 },
   settingRow: { alignItems: 'center', flexDirection: 'row', gap: 12, justifyContent: 'space-between' },
 });

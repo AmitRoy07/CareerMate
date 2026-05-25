@@ -44,3 +44,39 @@ Update docs when:
 - A new external service is introduced.
 - Setup, env, permissions, build, or production requirements change.
 
+## 6. Report Progress
+
+After every meaningful implementation, update or reference `docs/LAUNCH_READINESS.md` and report using this exact shape:
+
+Implementation Summary:
+- What was completed
+- Files changed
+- New files added
+- Existing files updated
+- Database/schema changes
+- Edge Functions added/updated
+- UI routes changed
+- Security impact
+- Documentation updated
+
+Verification:
+- Typecheck result
+- Doctor result
+- Routes smoke-tested
+- Known issues
+
+Launch Tracker Update:
+- Previous overall completion
+- New overall completion
+- Modules completed
+- Modules still pending
+- Blockers
+- Recommended next task
+
+Use the weighted completion model defined in `docs/LAUNCH_READINESS.md`.
+
+Do not mark any module as 100% unless code is implemented, TypeScript passes, the route is smoke-tested, loading/error/empty states are handled, security impact is reviewed, and documentation is updated if needed.
+
+Use the `Done` definition in `docs/LAUNCH_READINESS.md` before calling a feature done.
+
+Use the `Launch Claim Gate` in `docs/LAUNCH_READINESS.md` before saying the app is ready to launch.

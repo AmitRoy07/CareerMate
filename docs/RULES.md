@@ -76,6 +76,7 @@ Screens depend on service functions and typed contracts, not raw Supabase/FileSy
 - Use RLS for user-owned tables.
 - Validate file uploads by type and size before production.
 - Add rate limiting for AI and document sync endpoints.
+- Analytics must not log resume content, job descriptions, HR mail bodies, personal documents, or salary inputs.
 
 ## Data Rules
 
@@ -104,4 +105,3 @@ If you add or move a major feature:
 - Update `docs/ARCHITECTURE.md`.
 - Update `docs/FOLDER_STRUCTURE.md` if directories changed.
 - Update `README.md` if setup, scripts, env, or production steps changed.
-

@@ -4,81 +4,72 @@
 CareerMate/
 ├── app/
 │   ├── (auth)/
-│   │   ├── login.tsx
-│   │   ├── phone.tsx
-│   │   └── signup.tsx
 │   ├── (tabs)/
+│   ├── analyze/
 │   │   ├── _layout.tsx
 │   │   ├── index.tsx
-│   │   ├── interview.tsx
-│   │   ├── profile.tsx
-│   │   ├── resume.tsx
-│   │   └── salary.tsx
-│   ├── analyze/
-│   │   └── index.tsx
+│   │   └── job-match.tsx
 │   ├── interview/
+│   │   ├── _layout.tsx
 │   │   ├── [id].tsx
 │   │   └── questions.tsx
 │   ├── legal/
-│   │   ├── delete-account.tsx
-│   │   ├── privacy.tsx
-│   │   └── terms.tsx
 │   ├── resume/
+│   │   ├── _layout.tsx
 │   │   ├── builder.tsx
 │   │   └── preview.tsx
+│   ├── tools/
+│   │   ├── _layout.tsx
+│   │   └── hr-mail.tsx
 │   ├── vault/
+│   │   ├── _layout.tsx
 │   │   └── index.tsx
 │   ├── _layout.tsx
 │   ├── +html.tsx
 │   └── +not-found.tsx
 ├── assets/
-│   ├── fonts/
-│   └── images/
 ├── components/
 │   ├── cards/
 │   ├── forms/
 │   └── ui/
+│       └── ProtectedRoute.tsx
 ├── constants/
-│   ├── app.constants.ts
-│   └── Colors.ts
 ├── data/
-│   └── interview-bank.json
+│   ├── interview-bank.json
+│   └── resume-templates.json
 ├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── FOLDER_STRUCTURE.md
-│   └── RULES.md
 ├── scripts/
-│   └── build-interview-bank.mjs
 ├── services/
 │   ├── ai.service.ts
+│   ├── analytics.service.ts
 │   ├── auth.service.ts
+│   ├── crash.service.ts
+│   ├── hrMail.service.ts
 │   ├── interview.service.ts
+│   ├── monetization.service.ts
+│   ├── paywall.service.ts
 │   ├── profile.service.ts
 │   ├── resume.service.ts
 │   ├── salary.service.ts
 │   ├── supabase.ts
 │   └── vault.service.ts
 ├── store/
-│   ├── appSettings.tsx
-│   └── userStore.tsx
 ├── supabase/
 │   ├── functions/
+│   │   ├── analyze-resume/
+│   │   ├── generate-hr-mail/
+│   │   └── job-match/
 │   └── schema.sql
 ├── types/
+│   ├── ai.types.ts
+│   ├── hr-mail.types.ts
 │   ├── interview.types.ts
+│   ├── monetization.types.ts
 │   ├── resume.types.ts
+│   ├── template.types.ts
 │   ├── user.types.ts
 │   └── vault.types.ts
-├── app.json
-├── babel.config.js
-├── eas.json
-├── global.css
-├── metro.config.js
-├── nativewind-env.d.ts
-├── package.json
-├── README.md
-├── tailwind.config.js
-└── tsconfig.json
+└── config and package files
 ```
 
 ## Ownership
@@ -93,7 +84,7 @@ Reusable UI. Components should not know about Supabase, FileSystem, or remote AP
 
 ### `services/`
 
-Integration and business logic. Services may use Supabase, AsyncStorage, FileSystem, DocumentPicker, Print, and network APIs.
+Integration and business logic. Services may use Supabase, AsyncStorage, FileSystem, DocumentPicker, Print, Sharing, and network APIs.
 
 ### `store/`
 
@@ -109,11 +100,11 @@ App constants and design tokens.
 
 ### `data/`
 
-Generated/static app data. Large generated files should have a script source.
+Generated/static app data. Large generated files should have a script source. `interview-bank.json` is generated; `resume-templates.json` is curated product data.
 
 ### `supabase/`
 
-Database, storage policy, and Edge Function source of truth.
+Database, RLS, storage policy, and Edge Function source of truth.
 
 ## Naming Rules
 
@@ -123,4 +114,3 @@ Database, storage policy, and Edge Function source of truth.
 - Types: `feature.types.ts`.
 - Stores: clear domain names such as `userStore.tsx`.
 - Constants: `*.constants.ts` or descriptive token file names.
-

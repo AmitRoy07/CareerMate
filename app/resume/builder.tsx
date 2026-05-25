@@ -1,22 +1,34 @@
 import { Save, Share2 } from 'lucide-react-native';
-import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
 import { FormField } from '@/components/forms/FormField';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { LockBadge } from '@/components/ui/LockBadge';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { resumeSteps } from '@/constants/app.constants';
-import { emptyResume, exportResumePdf, saveResume } from '@/services/resume.service';
+import Colors from '@/constants/Colors';
+import { useColorScheme } from '@/components/useColorScheme';
+import { emptyResume, exportResumePdf, getResumeTemplates, saveResume } from '@/services/resume.service';
 import { useAuth } from '@/store/userStore';
 import type { ResumeDraft } from '@/types/resume.types';
+import type { ResumeTemplate } from '@/types/template.types';
 
 export default function ResumeBuilderScreen() {
   const { user } = useAuth();
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
   const [step, setStep] = useState(0);
   const [resume, setResume] = useState<ResumeDraft>(emptyResume);
+  const [templateId, setTemplateId] = useState('classic_basic');
+  const [templates, setTemplates] = useState<ResumeTemplate[]>([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getResumeTemplates().then(setTemplates).catch(() => setTemplates([]));
+  }, []);
 
   function update<K extends keyof ResumeDraft>(key: K, value: ResumeDraft[K]) {
     setResume((current) => ({ ...current, [key]: value }));
@@ -37,7 +49,7 @@ export default function ResumeBuilderScreen() {
   async function handleExport() {
     try {
       setLoading(true);
-      await exportResumePdf(resume);
+      await exportResumePdf({ resume, userId: user?.id, templateId });
     } catch (error) {
       Alert.alert('Export failed', error instanceof Error ? error.message : 'Please try again.');
     } finally {
@@ -59,6 +71,25 @@ export default function ResumeBuilderScreen() {
       </View>
 
       <Card>{renderStep(step, resume, update)}</Card>
+
+      <Card>
+        <Text variant="heading">Template</Text>
+        <Text variant="muted">Free users can export two basic templates with watermark. Premium unlocks all templates and no watermark.</Text>
+        <View style={styles.templateGrid}>
+          {templates.map((template) => (
+            <Pressable
+              key={template.id}
+              onPress={() => setTemplateId(template.id)}
+              style={[
+                styles.templateChip,
+                { backgroundColor: templateId === template.id ? colors.primarySoft : colors.surfaceLow, borderColor: templateId === template.id ? colors.primary : colors.border },
+              ]}>
+              <Text style={{ flex: 1, fontFamily: 'PlusJakartaSans_700Bold' }}>{template.name}</Text>
+              {template.isPremium ? <LockBadge label="Pro" /> : null}
+            </Pressable>
+          ))}
+        </View>
+      </Card>
 
       <View style={styles.actions}>
         <Button title="Back" variant="secondary" disabled={step === 0} onPress={() => setStep((value) => Math.max(0, value - 1))} style={styles.action} />
@@ -107,5 +138,6 @@ const styles = StyleSheet.create({
   dotActive: { backgroundColor: '#0F766E' },
   actions: { flexDirection: 'row', gap: 12 },
   action: { flex: 1 },
+  templateChip: { alignItems: 'center', borderRadius: 12, borderWidth: 1, flexDirection: 'row', gap: 8, minHeight: 48, paddingHorizontal: 12, paddingVertical: 8 },
+  templateGrid: { gap: 10 },
 });
-

@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { ArrowRight, Bot, Brain, Calculator, FileLock2, FileText, Search } from 'lucide-react-native';
+import { ArrowRight, Bot, Brain, Calculator, Crown, FileLock2, FileText, MailPlus, Search, SearchCheck } from 'lucide-react-native';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AppTopBar } from '@/components/ui/AppTopBar';
 import { Card } from '@/components/ui/Card';
 import { GlassIcon } from '@/components/ui/GlassIcon';
+import { PremiumFeatureCard } from '@/components/ui/PremiumFeatureCard';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import Colors from '@/constants/Colors';
@@ -42,13 +43,13 @@ export default function DashboardScreen() {
         <FeatureCard title="Document Vault" description="Store Aadhaar, PAN, certificates, and offers locally with optional cloud backup." icon={FileLock2} tone="cyan" onPress={() => router.push('/vault' as never)} />
       </View>
 
-      <Text variant="heading">Coming Soon</Text>
-      <Card style={{ backgroundColor: colors.surfaceLow }}>
-        <GlassIcon icon={Bot} tone="blue" />
-        <Text variant="label" style={[styles.badge, { backgroundColor: colorScheme === 'dark' ? colors.primarySoft : '#000000', color: colorScheme === 'dark' ? colors.primary : '#FFFFFF' }]}>New Technology</Text>
-        <Text variant="heading">AI Resume Analyzer</Text>
-        <Text variant="muted">Instant scoring and optimization tips for your current resume.</Text>
-      </Card>
+      <Text variant="heading">Premium Tools</Text>
+      <View style={styles.grid}>
+        <PremiumFeatureCard title="Analyze My Resume" description="ATS score, missing keywords, and practical fixes." icon={Bot} onPress={() => router.push('/analyze')} />
+        <PremiumFeatureCard title="Match Resume with Job" description="Compare your resume with a job description." icon={SearchCheck} onPress={() => router.push('/analyze/job-match' as never)} />
+        <PremiumFeatureCard title="Generate HR Email" description="Create polished professional HR mails and letters." icon={MailPlus} onPress={() => router.push('/tools/hr-mail' as never)} />
+        <PremiumFeatureCard title="Premium Templates" description="Unlock ATS-friendly layouts and no-watermark exports." icon={Crown} onPress={() => router.push('/resume/preview')} />
+      </View>
     </Screen>
   );
 }

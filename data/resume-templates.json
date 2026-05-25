@@ -1,0 +1,82 @@
+[
+  {
+    "id": "classic_basic",
+    "name": "Classic Basic",
+    "category": "classic",
+    "isPremium": false,
+    "previewImage": "classic-basic",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "modern_basic",
+    "name": "Modern Basic",
+    "category": "modern",
+    "isPremium": false,
+    "previewImage": "modern-basic",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "ats_professional",
+    "name": "ATS Professional",
+    "category": "ats",
+    "isPremium": true,
+    "previewImage": "ats-professional",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "tech_modern",
+    "name": "Tech Modern",
+    "category": "modern",
+    "isPremium": true,
+    "previewImage": "tech-modern",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "fresher_clean",
+    "name": "Fresher Clean",
+    "category": "fresher",
+    "isPremium": true,
+    "previewImage": "fresher-clean",
+    "supportedSections": ["personal", "summary", "skills", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "senior_executive",
+    "name": "Senior Executive",
+    "category": "executive",
+    "isPremium": true,
+    "previewImage": "senior-executive",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "minimal_blue",
+    "name": "Minimal Blue",
+    "category": "modern",
+    "isPremium": true,
+    "previewImage": "minimal-blue",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  },
+  {
+    "id": "compact_one_page",
+    "name": "Compact One Page",
+    "category": "compact",
+    "isPremium": true,
+    "previewImage": "compact-one-page",
+    "supportedSections": ["personal", "summary", "skills", "experience", "projects", "education", "certifications", "languages"],
+    "atsFriendly": true,
+    "createdAt": "2026-05-25T00:00:00.000Z"
+  }
+]
