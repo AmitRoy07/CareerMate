@@ -1,5 +1,5 @@
 import { LucideIcon } from 'lucide-react-native';
-import { ActivityIndicator, Pressable, StyleSheet, ViewStyle } from 'react-native';
+import { ActivityIndicator, Pressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Colors from '@/constants/Colors';
@@ -13,21 +13,23 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
   loading?: boolean;
   disabled?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
+  className?: string;
 }
 
-export function Button({ title, onPress, icon: Icon, variant = 'primary', loading, disabled, style }: ButtonProps) {
+export function Button({ title, onPress, icon: Icon, variant = 'primary', loading, disabled, style, className }: ButtonProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
   const isPrimary = variant === 'primary';
   const isDanger = variant === 'danger';
-  const primaryBackground = colorScheme === 'dark' ? colors.primary : '#000000';
+  const primaryBackground = colorScheme === 'dark' ? colors.secondary : '#000000';
   const backgroundColor = isPrimary ? primaryBackground : isDanger ? colors.danger : colors.surface;
-  const textColor = isPrimary || isDanger ? '#FFFFFF' : colors.text;
+  const textColor = isPrimary ? '#FFFFFF' : isDanger ? '#FFFFFF' : colors.text;
 
   return (
     <Pressable
       accessibilityRole="button"
+      className={`min-h-12 flex-row items-center justify-center gap-2 overflow-hidden rounded-lg border px-4 ${className ?? ''}`}
       disabled={disabled || loading}
       onPress={onPress}
       style={({ pressed }) => [
@@ -49,16 +51,7 @@ export function Button({ title, onPress, icon: Icon, variant = 'primary', loadin
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
-    borderRadius: 8,
-    borderWidth: 1,
     elevation: 3,
-    flexDirection: 'row',
-    gap: 8,
-    justifyContent: 'center',
-    minHeight: 48,
-    overflow: 'hidden',
-    paddingHorizontal: 16,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.12,
     shadowRadius: 18,

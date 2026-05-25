@@ -41,7 +41,7 @@ export default function SalaryScreen() {
       </Card>
 
       <Card style={{ backgroundColor: colors.secondary, borderWidth: 0 }}>
-        <Text variant="label" style={{ color: '#DBE1FF' }}>Final take home</Text>
+        <Text variant="label" style={{ color: colorScheme === 'dark' ? '#EAF1FF' : '#DBE1FF' }}>Final take home</Text>
         <Text variant="metric" style={{ color: '#FFFFFF' }}>{formatCurrency(result.inHandMonthly)}</Text>
         <Text style={{ color: '#F8F9FF' }}>Estimated net monthly salary</Text>
       </Card>

@@ -1,21 +1,22 @@
 import { PropsWithChildren } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GlassBackground } from './GlassBackground';
 
 interface ScreenProps extends PropsWithChildren {
   scroll?: boolean;
+  className?: string;
 }
 
-export function Screen({ children, scroll = true }: ScreenProps) {
-  const content = <View style={styles.content}>{children}</View>;
+export function Screen({ children, scroll = true, className }: ScreenProps) {
+  const content = <View className={`flex-1 gap-[18px] p-5 ${className ?? ''}`}>{children}</View>;
 
   return (
     <GlassBackground>
-      <SafeAreaView style={styles.safe}>
+      <SafeAreaView className="flex-1">
         {scroll ? (
-          <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerClassName="flex-grow" showsVerticalScrollIndicator={false}>
             {content}
           </ScrollView>
         ) : (
@@ -25,9 +26,3 @@ export function Screen({ children, scroll = true }: ScreenProps) {
     </GlassBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  scroll: { flexGrow: 1 },
-  content: { flex: 1, gap: 18, padding: 20 },
-});

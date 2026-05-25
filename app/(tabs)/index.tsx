@@ -45,7 +45,7 @@ export default function DashboardScreen() {
       <Text variant="heading">Coming Soon</Text>
       <Card style={{ backgroundColor: colors.surfaceLow }}>
         <GlassIcon icon={Bot} tone="blue" />
-        <Text variant="label" style={styles.badge}>New Technology</Text>
+        <Text variant="label" style={[styles.badge, { backgroundColor: colorScheme === 'dark' ? colors.primarySoft : '#000000', color: colorScheme === 'dark' ? colors.primary : '#FFFFFF' }]}>New Technology</Text>
         <Text variant="heading">AI Resume Analyzer</Text>
         <Text variant="muted">Instant scoring and optimization tips for your current resume.</Text>
       </Card>
@@ -77,7 +77,7 @@ function FeatureCard({ title, description, icon: Icon, onPress, primary, tone = 
 const styles = StyleSheet.create({
   avatar: { alignItems: 'center', borderRadius: 20, height: 40, justifyContent: 'center', width: 40 },
   avatarText: { fontFamily: 'PlusJakartaSans_700Bold' },
-  badge: { alignSelf: 'flex-start', backgroundColor: '#000000', borderRadius: 999, color: '#FFFFFF', paddingHorizontal: 8, paddingVertical: 3 },
+  badge: { alignSelf: 'flex-start', borderRadius: 999, overflow: 'hidden', paddingHorizontal: 8, paddingVertical: 3 },
   feature: { minHeight: 190 },
   featureTitle: { marginTop: 8 },
   greetingRow: { alignItems: 'center', flexDirection: 'row', gap: 10 },

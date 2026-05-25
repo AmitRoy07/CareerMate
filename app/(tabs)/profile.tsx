@@ -123,7 +123,7 @@ function ProfileLink({
 
   return (
     <Pressable onPress={onPress} style={styles.linkRow}>
-      <View style={[styles.linkIcon, { backgroundColor: danger ? '#FFEBE8' : colors.primarySoft }]}>
+      <View style={[styles.linkIcon, { backgroundColor: danger ? (colorScheme === 'dark' ? '#3A1C24' : '#FFEBE8') : colors.primarySoft }]}>
         <Icon color={danger ? colors.danger : colors.primary} size={21} />
       </View>
       <View style={styles.linkCopy}>

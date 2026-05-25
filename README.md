@@ -6,6 +6,7 @@ Production-oriented Expo MVP for Indian job seekers: resume builder, PDF export,
 
 - React Native + Expo + TypeScript
 - Expo Router
+- NativeWind + Tailwind CSS for utility-first styling
 - Supabase Auth, PostgreSQL, Storage-ready schema
 - Supabase Edge Functions for AI calls
 - Expo Print/Sharing for PDF export
@@ -19,6 +20,17 @@ Production-oriented Expo MVP for Indian job seekers: resume builder, PDF export,
 4. Start the app with `npm run web` or `npm run android`.
 
 The app supports local demo mode when Supabase env vars are missing.
+
+## Project Rules And Architecture
+
+Read these before making meaningful changes:
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Engineering Rules](docs/RULES.md)
+- [Folder Structure](docs/FOLDER_STRUCTURE.md)
+- [Change Workflow](docs/CHANGE_WORKFLOW.md)
+
+Important rule: study the relevant screen, service, store, types, and existing patterns before changing code. If a feature or folder structure changes, update the docs in the same work.
 
 ## Security Notes
 
@@ -56,6 +68,10 @@ npm run typecheck
 npm run doctor
 npx expo-doctor
 ```
+
+## Styling
+
+NativeWind is configured with `global.css`, `tailwind.config.js`, `babel.config.js`, `metro.config.js`, and `nativewind-env.d.ts`. Shared primitives such as `Screen`, `Card`, `Text`, and `Button` accept `className` so new screens can use Tailwind utilities while still respecting the app theme tokens.
 
 ## Production Checklist
 

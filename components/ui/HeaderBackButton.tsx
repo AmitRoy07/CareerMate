@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     marginLeft: 12,
+    marginRight: 18,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.12,
     shadowRadius: 12,
     width: 40,
   },
 });
-
