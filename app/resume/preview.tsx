@@ -1,11 +1,17 @@
 import { Share2 } from 'lucide-react-native';
-import { Alert, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Pressable, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { LockBadge } from '@/components/ui/LockBadge';
 import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
-import { emptyResume, exportResumePdf } from '@/services/resume.service';
+import Colors from '@/constants/Colors';
+import { useColorScheme } from '@/components/useColorScheme';
+import { emptyResume, exportResumePdf, getResumeTemplates } from '@/services/resume.service';
+import { useAuth } from '@/store/userStore';
+import type { ResumeTemplate } from '@/types/template.types';
 
 const sampleResume = {
   ...emptyResume,
@@ -17,9 +23,19 @@ const sampleResume = {
 };
 
 export default function ResumePreviewScreen() {
+  const { user } = useAuth();
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
+  const [templates, setTemplates] = useState<ResumeTemplate[]>([]);
+  const [templateId, setTemplateId] = useState('classic_basic');
+
+  useEffect(() => {
+    getResumeTemplates().then(setTemplates).catch(() => setTemplates([]));
+  }, []);
+
   async function handleExport() {
     try {
-      await exportResumePdf(sampleResume);
+      await exportResumePdf({ resume: sampleResume, userId: user?.id, templateId });
     } catch (error) {
       Alert.alert('Export failed', error instanceof Error ? error.message : 'Please try again.');
     }
@@ -29,8 +45,20 @@ export default function ResumePreviewScreen() {
     <Screen>
       <View>
         <Text variant="title">Preview</Text>
-        <Text variant="muted">Default clean template for ATS-friendly exports.</Text>
+        <Text variant="muted">Choose an ATS-friendly template. Free exports keep a small watermark.</Text>
       </View>
+      <Card>
+        <Text variant="heading">Templates</Text>
+        {templates.map((template) => (
+          <Pressable
+            key={template.id}
+            onPress={() => setTemplateId(template.id)}
+            style={{ alignItems: 'center', backgroundColor: templateId === template.id ? colors.primarySoft : colors.surfaceLow, borderColor: templateId === template.id ? colors.primary : colors.border, borderRadius: 12, borderWidth: 1, flexDirection: 'row', gap: 10, minHeight: 48, paddingHorizontal: 12 }}>
+            <Text style={{ flex: 1, fontFamily: 'PlusJakartaSans_700Bold' }}>{template.name}</Text>
+            {template.isPremium ? <LockBadge label="Premium" /> : <Text variant="label">Free</Text>}
+          </Pressable>
+        ))}
+      </Card>
       <Card>
         <Text variant="heading">{sampleResume.personal.fullName}</Text>
         <Text variant="muted">{sampleResume.personal.email} | {sampleResume.personal.phone} | {sampleResume.personal.location}</Text>
@@ -45,4 +73,3 @@ export default function ResumePreviewScreen() {
     </Screen>
   );
 }
-

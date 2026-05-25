@@ -9,6 +9,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import '../global.css';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { HeaderBackButton } from '@/components/ui/HeaderBackButton';
@@ -79,10 +80,14 @@ function RootLayoutNav() {
           <Stack.Screen name="(auth)/signup" options={{ title: 'Create account' }} />
           <Stack.Screen name="(auth)/phone" options={{ title: 'Phone sign in' }} />
           <Stack.Screen name="analyze/index" options={{ title: 'AI Analyzer' }} />
+          <Stack.Screen name="analyze/job-match" options={{ title: 'Job Match' }} />
+          <Stack.Screen name="tools/hr-mail" options={{ title: 'HR Mail Generator' }} />
           <Stack.Screen name="interview/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="interview/questions" options={{ headerShown: false }} />
           <Stack.Screen name="legal/privacy" options={{ title: 'Privacy Policy' }} />
           <Stack.Screen name="legal/terms" options={{ title: 'Terms & Conditions' }} />
           <Stack.Screen name="legal/delete-account" options={{ title: 'Delete Account' }} />
+          <Stack.Screen name="vault/index" options={{ title: 'Document Vault' }} />
           <Stack.Screen name="resume/builder" options={{ title: 'Edit Resume' }} />
           <Stack.Screen name="resume/preview" options={{ title: 'Resume Preview' }} />
         </Stack>

@@ -8,9 +8,19 @@
     "scheme": "careermate",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.careermate.india",
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "CareerMate lets you choose a profile image and import document images into your private vault."
+      }
     },
     "android": {
+      "package": "com.careermate.india",
+      "versionCode": 1,
+      "permissions": [
+        "READ_MEDIA_IMAGES"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

@@ -9,11 +9,15 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { FormField } from '@/components/forms/FormField';
 import { APP_NAME } from '@/constants/app.constants';
+import Colors from '@/constants/Colors';
+import { useColorScheme } from '@/components/useColorScheme';
 import { signInWithEmail, signInWithGoogle } from '@/services/auth.service';
 import { isSupabaseConfigured } from '@/services/supabase';
 import { useAuth } from '@/store/userStore';
 
 export default function LoginScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
   const { session, demoMode, enableDemoMode } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +52,7 @@ export default function LoginScreen() {
   return (
     <Screen>
       <View style={styles.hero}>
-        <Text variant="title" style={styles.brand}>{APP_NAME}</Text>
+        <Text variant="title" style={[styles.brand, { color: colors.text }]}>{APP_NAME}</Text>
       </View>
 
       <Card style={styles.authCard}>
@@ -99,7 +103,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   authCard: { gap: 18 },
   authModes: { flexDirection: 'row', gap: 12 },
-  brand: { color: '#000000', textAlign: 'center' },
+  brand: { textAlign: 'center' },
   center: { textAlign: 'center' },
   divider: { backgroundColor: '#C6C6CD', flex: 1, height: 1 },
   dividerRow: { alignItems: 'center', flexDirection: 'row', gap: 12 },

@@ -6,15 +6,17 @@ import { useColorScheme } from '@/components/useColorScheme';
 
 interface TextProps extends RNTextProps, PropsWithChildren {
   variant?: 'title' | 'heading' | 'body' | 'muted' | 'label' | 'metric';
+  className?: string;
 }
 
-export function Text({ children, style, variant = 'body', ...props }: TextProps) {
+export function Text({ children, style, variant = 'body', className, ...props }: TextProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
 
   return (
     <RNText
       {...props}
+      className={className}
       style={[
         styles.base,
         { color: variant === 'muted' || variant === 'label' ? colors.muted : colors.text },

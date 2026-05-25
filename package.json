@@ -11,6 +11,7 @@
     "expo-blur": "~56.0.3",
     "expo-constants": "~56.0.15",
     "expo-document-picker": "~56.0.4",
+    "expo-file-system": "~56.0.7",
     "expo-font": "~56.0.5",
     "expo-image-picker": "~56.0.13",
     "expo-linear-gradient": "~56.0.4",
@@ -23,6 +24,7 @@
     "expo-symbols": "~56.0.5",
     "expo-web-browser": "~56.0.5",
     "lucide-react-native": "^1.16.0",
+    "nativewind": "^4.2.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.85.3",
@@ -36,6 +38,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "babel-preset-expo": "^56.0.12",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.17",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -43,7 +48,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:interviews": "node scripts/build-interview-bank.mjs"
+    "build:interviews": "node scripts/build-interview-bank.mjs",
+    "typecheck": "tsc --noEmit",
+    "doctor": "npx expo-doctor"
   },
   "private": true
 }

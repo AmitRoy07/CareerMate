@@ -4,15 +4,27 @@ Starting Metro Bundler
 warning: Bundler cache is empty, rebuilding (this may take a minute)
 Waiting on http://localhost:8082
 Logs for your project will appear below.
-λ Bundled 32379ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (3132 modules)
+λ Bundled 42925ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (3166 modules)
 "shadow*" style props are deprecated. Use "boxShadow".
-Web Bundled 33371ms node_modules\expo-router\entry.js (3095 modules)
-λ Bundled 72ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+Web Bundled 45233ms node_modules\expo-router\entry.js (3119 modules)
+λ Bundled 121ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+Web Bundled 291ms node_modules\expo-router\entry.js (1 module)
 "shadow*" style props are deprecated. Use "boxShadow".
-Web Bundled 499ms node_modules\expo-router\entry.js (1 module)
-λ Bundled 53ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+λ Bundled 85ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
 "shadow*" style props are deprecated. Use "boxShadow".
-Web Bundled 482ms node_modules\expo-router\entry.js (1 module)
-λ Bundled 55ms node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
-"shadow*" style props are deprecated. Use "boxShadow".
-Web Bundled 592ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 939ms node_modules\expo-router\entry.js (1 module)
+D:\work\CareerMate\node_modules\@expo\cli\build\src\utils\errors.js:130
+    throw error;
+    ^
+
+TypeError: Cannot read properties of undefined (reading 'addedFiles')
+    at DependencyGraph._onHasteChange (D:\work\CareerMate\node_modules\metro\src\node-haste\DependencyGraph.js:99:18)
+    at FileMap.<anonymous> (D:\work\CareerMate\node_modules\metro\src\node-haste\DependencyGraph.js:68:14)
+    at FileMap.emit (node:events:531:35)
+    at Object.onChange (D:\work\CareerMate\node_modules\react-native-css-interop\dist\metro\index.js:179:19)
+    at ChildProcess.<anonymous> (D:\work\CareerMate\node_modules\nativewind\dist\metro\tailwind\v3\index.js:51:37)
+    at ChildProcess.emit (node:events:519:28)
+    at emit (node:internal/child_process:949:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+
+Node.js v22.21.1
