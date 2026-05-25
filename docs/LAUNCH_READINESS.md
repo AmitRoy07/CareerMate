@@ -133,7 +133,7 @@ Blockers: Final Android device polish pass still needed.
 ## 4. Resume Builder
 
 Status: In Progress
-Completion: 80%
+Completion: 82%
 Required:
 - Create resume
 - Edit resume
@@ -282,7 +282,7 @@ Required:
 - Loading states
 - Error states
 - Responsive mobile layout
-Notes: The app has a cohesive modern visual language, dark mode support, and most major screens include loading and error handling.
+Notes: The app has a cohesive modern visual language, dark mode support, page-entry animation, spring button feedback, and most major screens include loading and error handling.
 Blockers: A full Android small-screen pass and a few deeper empty-state checks are still needed.
 
 ## 15. Performance
@@ -344,7 +344,7 @@ Blockers: No physical Android smoke test, no EAS preview build validation, and n
 
 ## Overall Launch Completion
 
-Percentage: 85.76% (rounded to 86%)
+Percentage: 85.86% (rounded to 86%)
 Current launch status:
 - Internal Testing Ready
 
@@ -370,10 +370,10 @@ Connect the production-shaped Supabase project first, apply `supabase/schema.sql
 
 ## Progress Update
 
-- Overall completion: 85.76% (rounded to 86%)
+- Overall completion: 85.86% (rounded to 86%)
 - Current phase: Android Play Store MVP hardening
-- Completed in this pass: Added shared protected-route layouts for all protected app areas and updated the tracker using the weighted model.
-- Verification: Route guards were wired through protected layouts, then `npm.cmd run typecheck`, `npm.cmd run doctor`, and protected-route web smoke tests were run.
+- Completed in this pass: Added page-entry animation at the shared screen level and spring press feedback to shared buttons.
+- Verification: `npm.cmd run typecheck`, `npm.cmd run doctor`, and web smoke tests for `/`, `/(auth)/login`, `/resume/builder`, and `/analyze` were run.
 - Launch readiness: Internal Testing Ready
 - Blockers: Live Supabase verification, Android device QA, resume list real-data wiring, hosted legal URLs.
 - Risks: Android-specific flow regressions, unverified RLS, fallback AI behavior, store compliance gaps, interview-content licensing.
