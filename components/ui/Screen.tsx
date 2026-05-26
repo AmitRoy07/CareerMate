@@ -1,9 +1,9 @@
-import { PropsWithChildren } from 'react';
-import { ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import { PropsWithChildren } from "react";
+import { ScrollView } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { GlassBackground } from './GlassBackground';
+import { GlassBackground } from "./GlassBackground";
 
 interface ScreenProps extends PropsWithChildren {
   scroll?: boolean;
@@ -14,7 +14,8 @@ export function Screen({ children, scroll = true, className }: ScreenProps) {
   const content = (
     <Animated.View
       entering={FadeInDown.duration(320)}
-      className={`flex-1 gap-[18px] p-5 ${className ?? ''}`}>
+      className={`flex-1 gap-[18px] p-5 ${className ?? ""}`}
+    >
       {children}
     </Animated.View>
   );
@@ -23,7 +24,10 @@ export function Screen({ children, scroll = true, className }: ScreenProps) {
     <GlassBackground>
       <SafeAreaView className="flex-1">
         {scroll ? (
-          <ScrollView contentContainerClassName="flex-grow" showsVerticalScrollIndicator={false}>
+          <ScrollView
+            contentContainerClassName="flex-grow"
+            showsVerticalScrollIndicator={false}
+          >
             {content}
           </ScrollView>
         ) : (
@@ -33,12 +37,3 @@ export function Screen({ children, scroll = true, className }: ScreenProps) {
     </GlassBackground>
   );
 }
-<<<<<<< HEAD
-
-const styles = StyleSheet.create({
-  animatedWrap: {
-    width: '100%',
-  },
-});
-=======
->>>>>>> 4aa94f765dd3040c827dfb99439f850d651eaac5
