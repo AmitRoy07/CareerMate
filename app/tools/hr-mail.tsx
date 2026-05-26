@@ -41,7 +41,7 @@ export default function HrMailScreen() {
   const { user, demoMode } = useAuth();
   const [mailType, setMailType] = useState<HrMailType>("interview_follow_up");
   const [tone, setTone] = useState<HrMailTone>("polite");
-  const [name, setName] = useState("Amit Sharma");
+  const [name, setName] = useState("Rahul Sharma");
   const [companyName, setCompanyName] = useState("CareerMate Labs");
   const [role, setRole] = useState("Frontend Engineer");
   const [hrOrManagerName, setHrOrManagerName] = useState("");
